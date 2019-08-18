@@ -31,7 +31,7 @@ public class Path {
 	private Date createdAt;
 	private Date updatedAt;
 
-	// Many users can be the One author for a story
+	// Many stages can belong to one path
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "stage_id")
 	private Stage stage;
