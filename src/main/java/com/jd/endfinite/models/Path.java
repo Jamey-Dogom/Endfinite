@@ -1,6 +1,7 @@
 package com.jd.endfinite.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -22,19 +24,21 @@ public class Path {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Size(min = 1, message = "Cannot be empty")
-	private String choice1;
+	private String title;
 	@Size(min = 1, message = "Cannot be empty")
-	private String choice2;
-	@Size(min = 1, message = "Cannot be empty")
-	private String choice3;
+	private String choice;
 	@Column(updatable = false)
 	private Date createdAt;
 	private Date updatedAt;
 
-	// Many stages can belong to one path
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "stage_id")
-	private Stage stage;
+	// Many stages can belong to Many paths
+	 @ManyToMany(fetch = FetchType.LAZY)
+	    @JoinTable(
+	        name = "stages_paths", 
+	        joinColumns = @JoinColumn(name = "path_id"), 
+	        inverseJoinColumns = @JoinColumn(name = "stage_id")
+	    )
+	    private List<Stage> stages;
 
 	// Getters and Setters
 	public Long getId() {
@@ -45,29 +49,6 @@ public class Path {
 		this.id = id;
 	}
 
-	public String getChoice1() {
-		return choice1;
-	}
-
-	public void setChoice1(String choice1) {
-		this.choice1 = choice1;
-	}
-
-	public String getChoice2() {
-		return choice2;
-	}
-
-	public void setChoice2(String choice2) {
-		this.choice2 = choice2;
-	}
-
-	public String getChoice3() {
-		return choice3;
-	}
-
-	public void setChoice3(String choice3) {
-		this.choice3 = choice3;
-	}
 
 	public Date getCreatedAt() {
 		return createdAt;
@@ -85,12 +66,30 @@ public class Path {
 		this.updatedAt = updatedAt;
 	}
 
-	public Stage getStage() {
-		return stage;
+	public String getChoice() {
+		return choice;
 	}
 
-	public void setStage(Stage stage) {
-		this.stage = stage;
+	public void setChoice(String choice) {
+		this.choice = choice;
+	}
+
+	public List<Stage> getStages() {
+		return stages;
+	}
+
+	public void setStages(List<Stage> stages) {
+		this.stages = stages;
+	}
+	
+	
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	// other getters and setters removed for brevity

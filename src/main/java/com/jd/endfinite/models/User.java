@@ -133,6 +133,8 @@ public class User {
 	public void setStories(List<Story> stories) {
 		this.stories = stories;
 	}
+	
+	
 
 	// other getters and setters removed for brevity
 	@PrePersist

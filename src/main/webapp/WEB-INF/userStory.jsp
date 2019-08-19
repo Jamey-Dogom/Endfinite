@@ -42,71 +42,32 @@
 				<c:out value="${user.firstName}"></c:out>
 			</button>
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				<a class="btn  mgrt" href="/${user.id}/stories">My Stories</a> 
-				<a class="btn  mgrt" href="/logout">Logout</a>
+				<a class="btn  mgrt" href="/${user.id}/stories">My Stories</a> <a
+					class="btn  mgrt" href="/logout">Logout</a>
 			</div>
 		</div>
 	</div>
 	<div class="container"></div>
 
-<section id="pricing">
-
-    <h2 class = "center">Pick Your Path</h2>
-    <p class = "center">You can read, create, or collab on an adventure!</p>
-
-    <div class="row">
-
-
-      <div class="pricing-column col-lg-4 col-md-6">
-        <div class="card text-center">
-          <div class="card-header">
-            <h3>Read A Story</h3>
-          </div>
-          <div class="card-body">
-            <h5>Read User Created Adventures</h5>
-            <p>*Updated Daily*</p>
-            <p>View the Top 10 User Voted Stories</p>
-            <p>Reread your favorites with new choices</p>
-            <button type="button" class="btn btn-lg btn-success">Let's Read!</button>
-          </div>
-        </div>
-      </div>
-
-        
-
-        <div class="pricing-column col-lg-4">
-          <div class="card text-center">
-            <div class="card-header">
-              <h3>Create A Story</h3>
-            </div>
-            <div class="card-body">
-              <h5>Create a Story to Share</h5>
-              <p>*Unlimited Endings*</p>
-              <p>Collection of Your Stories Archived!</p>
-              <p>Publish Your Work!</p>
-              <a href="/create"><button type="button" class="btn btn-lg btn-warning">Let's Create!</button></a>
-            </div>
-          </div>
-        </div>
-        
-        <div class="pricing-column col-lg-4 col-md-6">
-          <div class="card text-center">
-          <div class="card-header">
-            <h3>Collaborate A Story</h3>
-          </div>
-          <div class="card-body">
-            <h5>Collaborate a Story</h5>
-            <p>*Endless Possibilities*</p>
-            <p>Create A Story and Collab With Other Authors</p>
-            <p>Jump In and Write Endings for Stories</p>
-            <button type="button" class="btn btn-lg btn-danger">Let's Collaborate!</button>
-          </div>
-        </div>
-      </div>
-
-      </div>
-
-  </section>
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">Title</th>
+				<th scope="col">Author</th>
+				<th scope="col">Collaborators?</th>
+			</tr>
+		</thead>
+		<tbody>
+		<c:forEach items="${userStories}" var="story">
+		
+			<tr>
+				<th scope="row"><c:out value = "${story.title}"></c:out></th>
+				<th scope="row"><c:out value = "${story.title}"></c:out></th>
+				<th scope="row"><c:out value = "${story.title}"></c:out></th>
+			</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 
 
 
