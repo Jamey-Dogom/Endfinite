@@ -43,7 +43,7 @@ public class EndfiniteController {
 			// redirect them to the /home route
 			endfiniteService.registerUser(user);
 			session.setAttribute("user", user);
-			return "redirect:/events";
+			return "redirect:/home";
 		}
 	}
 
@@ -53,7 +53,7 @@ public class EndfiniteController {
 		// if the user is authenticated, save their user id in session
 		if (endfiniteService.authenticateUser(email, password)) {
 			session.setAttribute("user", endfiniteService.findByEmail(email));
-			return "redirect:/events";
+			return "redirect:/home";
 		}
 		// else, add error messages and return the login page
 		else {
@@ -62,7 +62,7 @@ public class EndfiniteController {
 		}
 	}
 
-	@RequestMapping("/events")
+	@RequestMapping("/home")
 	public String home(HttpSession session, Model model) {
 		if (session.getAttribute("user") == null) {
 			return "redirect:/";
