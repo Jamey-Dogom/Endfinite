@@ -17,6 +17,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "stories")
@@ -24,7 +29,11 @@ public class Story {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Size(min = 1, message = "Title must be at least 1 character")
+	private String title;
+	@DateTimeFormat(pattern="dd-MM-yyyy")
 	@Column(updatable = false)
+	@Temporal(TemporalType.DATE)
 	private Date createdAt;
 	private Date updatedAt;
 
@@ -94,6 +103,14 @@ public class Story {
 
 	public void setStages(List<Stage> stages) {
 		this.stages = stages;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	// other getters and setters removed for brevity

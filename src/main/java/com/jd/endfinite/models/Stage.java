@@ -3,6 +3,7 @@ package com.jd.endfinite.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
@@ -30,13 +33,18 @@ public class Stage {
 	private Date updatedAt;
 
 	// Many stages belong to One story
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY,  cascade = {CascadeType.ALL})
 	@JoinColumn(name = "story_id")
 	private Story story;
-
-	// One stage can have Many paths
-	@OneToMany(mappedBy = "stage", fetch = FetchType.LAZY)
-	private List<Path> paths;
+	
+	// Many stages can belong to many paths
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "stages_paths", 
+            joinColumns = @JoinColumn(name = "stage_id"), 
+            inverseJoinColumns = @JoinColumn(name = "path_id")
+        )
+        private List<Path> paths;
 
 	// constructor
 	public Stage() {
