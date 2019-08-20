@@ -47,7 +47,7 @@
 			</button>
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 				<a class="btn  mgrt" href="/home">Home</a> <a class="btn  mgrt"
-					href="/stories/${user.id}">My Stories</a> <a class="btn  mgrt"
+					href="/${user.id}/stories">My Stories</a> <a class="btn  mgrt"
 					href="/logout">Logout</a>
 			</div>
 		</div>
@@ -55,36 +55,25 @@
 	<div class="container"></div>
 	<img class="book" src="/images/book.png">
 
-	<form action="/createStory" method="POST">
+	<form action="/createNextPath/${path.id}" method="POST">
 		<section class="inside-book-left">
+			<h3><c:out value = "${path.title}"></c:out></h3>
+			<h4><c:out value = "${path.choice}"></c:out></h4>
 			<div class="form-group">
-				<label for="InputTitle">Title:</label> <input type="text"
-					name="title" class="form-control" id="InputTitle"
-					aria-describedby="emailHelp" placeholder="Enter title" /> <small
-					id="titleHelp" class="form-text text-muted">Choose a title
-					that will hook a reader</small>
-			</div>
-
-			<div class="form-group">
-				<label for="exampleFormControlTextarea1">Introduction:</label>
-				<textarea name="firstStage" class="form-control"
+				<label class = "mgt" for="exampleFormControlTextarea1">What Happens Next:</label>
+				<textarea name="stage" class="form-control"
 					id="exampleFormControlTextarea1" rows="12"></textarea>
 			</div>
-
-			<div class="form-group form-check">
-				<input type="checkbox" name="collab" class="form-check-input"
-					id="exampleCheck1"> <label class="form-check-label"
-					for="exampleCheck1">Collaborators?</label>
-			</div>
 		</section>
-
 
 		<div class="inside-book-right">
 			<div class="card text-white bg-success mb-3"
 				style="max-width: 18rem;">
-				<div class="card-header"><input type="text"
-					name="pathOneTitle" class="form-control" id="InputTitle"
-					aria-describedby="emailHelp" placeholder="Enter path title" /></div>
+				<div class="card-header">
+					<input type="text" name="pathOneTitle" class="form-control"
+						id="InputTitle" aria-describedby="emailHelp"
+						placeholder="Enter path title" />
+				</div>
 				<div class="card-body">
 					<textarea name="pathOne" class="form-control"
 						id="exampleFormControlTextarea1" rows="4"></textarea>
@@ -92,18 +81,22 @@
 			</div>
 			<div class="card text-white bg-warning mb-3"
 				style="max-width: 18rem;">
-				<div class="card-header"><input type="text"
-					name="pathTwoTitle" class="form-control" id="InputTitle"
-					aria-describedby="emailHelp" placeholder="Enter path title" /></div>
+				<div class="card-header">
+					<input type="text" name="pathTwoTitle" class="form-control"
+						id="InputTitle" aria-describedby="emailHelp"
+						placeholder="Enter path title" />
+				</div>
 				<div class="card-body">
 					<textarea name="pathTwo" class="form-control"
 						id="exampleFormControlTextarea1" rows="4"></textarea>
 				</div>
 			</div>
 			<div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-				<div class="card-header"><input type="text"
-					name="pathThreeTitle" class="form-control" id="InputTitle"
-					aria-describedby="emailHelp" placeholder="Enter path title" /></div>
+				<div class="card-header">
+					<input type="text" name="pathThreeTitle" class="form-control"
+						id="InputTitle" aria-describedby="emailHelp"
+						placeholder="Enter path title" />
+				</div>
 				<div class="card-body">
 					<textarea name="pathThree" class="form-control"
 						id="exampleFormControlTextarea1" rows="4"></textarea>

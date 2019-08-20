@@ -55,16 +55,16 @@
 			<tr>
 				<th scope="col">Title</th>
 				<th scope="col">Author</th>
-				<th scope="col">Collaborators?</th>
+				<!-- <th scope="col">Collaborators?</th> -->
 			</tr>
 		</thead>
 		<tbody>
-		<c:forEach items="${userStories}" var="story">
+		<c:forEach items="${collabStories}" var="story">
 		
 			<tr>
 				<th scope="row"><a href="/create/${story.id}"><c:out value = "${story.title}"></c:out></a></th>
 				<th scope="row"><c:out value = "${story.author.firstName}"></c:out></th>
-				<th scope="row"><c:out value = "${story.collaborators.size()}"></c:out></th>
+				<%-- <th scope="row"><c:out value = "${story.collaborators.size()}"></c:out></th> --%>
 			</tr>
 			</c:forEach>
 		</tbody>

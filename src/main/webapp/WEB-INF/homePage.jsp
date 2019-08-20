@@ -42,7 +42,7 @@
 				<c:out value="${user.firstName}"></c:out>
 			</button>
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				<a class="btn  mgrt" href="/${user.id}/stories">My Stories</a> 
+				<a class="btn  mgrt" href="/stories/${user.id}">My Stories</a> 
 				<a class="btn  mgrt" href="/logout">Logout</a>
 			</div>
 		</div>
@@ -67,7 +67,7 @@
             <p>*Updated Daily*</p>
             <p>View the Top 10 User Voted Stories</p>
             <p>Reread your favorites with new choices</p>
-            <button type="button" class="btn btn-lg btn-success">Let's Read!</button>
+            <a href="/read"><button type="button" class="btn btn-lg btn-success">Let's Read!</button></a>
           </div>
         </div>
       </div>
@@ -99,7 +99,7 @@
             <p>*Endless Possibilities*</p>
             <p>Create A Story and Collab With Other Authors</p>
             <p>Jump In and Write Endings for Stories</p>
-            <button type="button" class="btn btn-lg btn-danger">Let's Collaborate!</button>
+            <a href="/collab"><button type="button" class="btn btn-lg btn-danger">Let's Collaborate!</button></a>
           </div>
         </div>
       </div>

@@ -47,15 +47,29 @@
 			</button>
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 				<a class="btn  mgrt" href="/home">Home</a> <a class="btn  mgrt"
-					href="/${user.id}/stories">My Stories</a> <a class="btn  mgrt"
+					href="/stories/${user.id}">My Stories</a> <a class="btn  mgrt"
 					href="/logout">Logout</a>
 			</div>
 		</div>
 	</div>
 	<div class="container">
+		<c:if test="${user.id == story.author.id}">
+			<c:if test="${story.publish == false }">
+				<a class="centerb" href="/publish/${story.id}"><button
+						type="button" class="btn btn-success">Publish</button></a>
+			</c:if>
 
-		<h2 class="center">
-			<span class = "underline"><c:out value="${story.title}"></c:out></span>
+			<c:if test="${story.publish == true }">
+				<a class="centerb" href="/publish/${story.id}"><button
+						type="button" class="btn btn-danger">UnPublish</button></a>
+			</c:if>
+		</c:if>
+
+
+
+		<h2 class="center mgt">
+
+			<span class="underline"><c:out value="${story.title}"></c:out></span>
 			Written By:<span> <c:out value="${story.author.firstName}"></c:out></span>
 		</h2>
 		<p class="center">
@@ -64,7 +78,6 @@
 		</p>
 
 		<c:forEach items="${story.stages}" var="stage">
-
 			<h2 class="center">
 				<c:out value="${stage.description}"></c:out>
 			</h2>
@@ -74,22 +87,27 @@
 					<div class="pricing-column col-lg-4">
 						<div class="card text-center">
 							<div class="card-header">
-								<h3><c:out value="${path.title}"></c:out></h3>
+								<h3>
+									<c:out value="${path.title}"></c:out>
+								</h3>
 							</div>
 							<div class="card-body">
-								<h5><c:out value="${path.choice}"></c:out></h5>
-								<div class = "space"></div>
-								
-								<a href="/contPath/${path.id}"><button type="button"
-										class="btn btn-lg btn-warning">Continue Path</button></a>
+								<h5>
+									<c:out value="${path.choice}"></c:out>
+								</h5>
+								<div class="space"></div>
+								<c:if test="${user.id == story.author.id || story.collab == true}">
+									<a href="/path/${path.id}"><button type="button"
+											class="btn btn-lg btn-warning">Continue Path</button></a>
+								</c:if>
 							</div>
 						</div>
 					</div>
-					</c:forEach>
+				</c:forEach>
 			</div>
 
 
-		
+
 		</c:forEach>
 
 	</div>

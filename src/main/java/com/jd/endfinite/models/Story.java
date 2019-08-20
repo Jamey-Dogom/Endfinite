@@ -31,6 +31,8 @@ public class Story {
 	private Long id;
 	@Size(min = 1, message = "Title must be at least 1 character")
 	private String title;
+    private Boolean publish = false;
+    private Boolean collab = false;
 	@DateTimeFormat(pattern="dd-MM-yyyy")
 	@Column(updatable = false)
 	@Temporal(TemporalType.DATE)
@@ -111,6 +113,26 @@ public class Story {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	
+
+	public Boolean getPublish() {
+		return publish;
+	}
+
+	public void setPublish(Boolean publish) {
+		this.publish = publish;
+	}
+	
+	
+
+	public Boolean getCollab() {
+		return collab;
+	}
+
+	public void setCollab(Boolean collab) {
+		this.collab = collab;
 	}
 
 	// other getters and setters removed for brevity

@@ -136,9 +136,8 @@ public class EndfiniteController {
 		// set title of new story
 		newStory.setTitle(title);
 		// if user selects to not have collaborators set att to null
-		if (collab == null) {
-			collab = "off";
-			newStory.setCollaborators(null);
+		if (collab != null) {
+			newStory.setCollab(true);
 		}
 
 		// create a new stage object
@@ -204,5 +203,115 @@ public class EndfiniteController {
 
 		return "redirect:/create/" + newStory.getId();
 	}
+	
+	
+	// View Users Own Stories
+	@RequestMapping("/stories/{id}")
+	public String userStories(@PathVariable("id") Long id, HttpSession session, Model model) {
+		if (session.getAttribute("user") == null) {
+			return "redirect:/";
+		}
+
+		User user = (User) session.getAttribute("user");
+		model.addAttribute("user", user);
+		model.addAttribute("userStories", endfiniteService.findUserStories(user));
+		return "userStory.jsp";
+	}
+	
+	@RequestMapping("/path/{id}")
+	public String continuePath(@PathVariable("id") Long id, Model model, HttpSession session) {
+		if (session.getAttribute("user") == null) {
+			return "redirect:/";
+		}
+
+		User user = (User) session.getAttribute("user");
+		model.addAttribute("user", user);
+		Path path = endfiniteService.findPathById(id);
+		model.addAttribute("path", path);
+		return "createPath.jsp";
+		
+	}
+	
+	@PostMapping("/createNextPath/{id}")
+	public String createNextPath(@PathVariable("id") Long id, @RequestParam("stage") String stage, @RequestParam("pathOne") String pathOne,
+			@RequestParam("pathTwo") String pathTwo, @RequestParam("pathThree") String pathThree,
+			@RequestParam("pathOneTitle") String pathOneTitle, @RequestParam("pathTwoTitle") String pathTwoTitle,
+			@RequestParam("pathThreeTitle") String pathThreeTitle, HttpSession session) {
+		
+		Path path = endfiniteService.findPathById(id);
+		Stage prevstage = path.getStages().get(0);
+		Story story = prevstage.getStory();
+		
+		List<Stage> stages = path.getStages();
+		Stage newStage = new Stage();
+		newStage.setStory(story);
+		newStage.setDescription(stage);
+		endfiniteService.createStage(newStage);
+		stages.add(newStage);
+		path.setStages(stages);
+		endfiniteService.createPath(path);
+		
+		List<Stage> stages2 = new ArrayList<>();
+		stages2.add(newStage);
+		
+		Path path1 = new Path();
+		path1.setTitle(pathOneTitle);
+		path1.setChoice(pathOne);
+		path1.setStages(stages2);
+		endfiniteService.createPath(path1);
+
+		Path path2 = new Path();
+		path2.setTitle(pathTwoTitle);
+		path2.setChoice(pathTwo);
+		path2.setStages(stages2);
+		endfiniteService.createPath(path2);
+
+		Path path3 = new Path();
+		path3.setTitle(pathThreeTitle);
+		path3.setChoice(pathThree);
+		path3.setStages(stages2);
+		endfiniteService.createPath(path3);
+		
+		return "redirect:/create/" + story.getId();
+	}
+	
+	@RequestMapping("/publish/{id}")
+	public String publishStory(@PathVariable("id") Long id) {
+		Story story = endfiniteService.findByStoryId(id);
+		if(story.getPublish()) {
+			story.setPublish(false);
+		}
+		else {
+			story.setPublish(true);
+		}
+		endfiniteService.createStory(story);
+		return "redirect:/create/" + story.getId();
+	}
+	
+	@RequestMapping("/read")
+	public String readStories(Model model, HttpSession session) {
+		if (session.getAttribute("user") == null) {
+			return "redirect:/";
+		}
+
+		User user = (User) session.getAttribute("user");
+		model.addAttribute("user", user);
+		model.addAttribute("publishedStories", endfiniteService.findPublishedStories());
+		return "readHome.jsp";
+	}
+	
+	@RequestMapping("/collab")
+	public String collabStories(Model model, HttpSession session) {
+		if (session.getAttribute("user") == null) {
+			return "redirect:/";
+		}
+		User user = (User) session.getAttribute("user");
+		model.addAttribute("user", user);
+		model.addAttribute("collabStories", endfiniteService.findCollabStory());
+		return "collabStory.jsp";
+	}
+	
+	
+	
 
 }

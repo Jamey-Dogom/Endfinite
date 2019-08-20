@@ -150,5 +150,21 @@ public class EndfiniteService {
 		
 	}
 
+	public List<Story> findUserStories(User user) {
+		return storyRepo.findAllByUser(user);
+	}
+
+	public Path findPathById(Long id) {
+		return pathRepo.findById(id).get();
+	}
+
+	public List<Story> findPublishedStories() {
+		return storyRepo.findPublishedStories();
+	}
+	
+	public List<Story> findCollabStory(){
+		return storyRepo.findCollabStory();
+	}
+
 
 }
